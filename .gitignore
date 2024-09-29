@@ -2,5 +2,5 @@
 /public/build/
 .vscode/
 dist
-
+/src-tauri/default_settings.json
 .DS_Store

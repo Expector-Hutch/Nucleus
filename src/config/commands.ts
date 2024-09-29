@@ -1,7 +1,7 @@
 import { fs, path as p } from "@tauri-apps/api";
 import { openInputModal, openRenameModal } from "../App.svelte";
 import { addEditorTab, closeAllTabs } from "../lib/EditorTabList.svelte";
-import { saveFile, openFile, openFolder, openInExplorer, renameFile, createFolder, createFile } from "../lib/File";
+import { saveFile, openFile, openFolder, openInExplorer, renameFile, createFolder, createFile, runFile } from "../lib/File";
 import { appWindow } from "@tauri-apps/api/window";
 import { info, warn } from "tauri-plugin-log-api";
 import { fitTerminal } from "../lib/Terminal.svelte";
@@ -129,9 +129,9 @@ export const commands = {
         }
     },
     "runFile": {
-        "keybind": "F5",
-        "command": () => {
-            //
+        "keybind": "F11",
+        "command": async () => {
+            await runFile();
         }
     },
     "debugFile": {

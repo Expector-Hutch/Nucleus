@@ -237,6 +237,15 @@ fn write_file(path: &str, content: &str, enc: &str, has_bom: bool) {
 }
 
 #[tauri::command]
+fn run_file(path: &str) {
+    info!("Attempting to run the file {}.", path);
+
+    let out_file: &str = &format!("{}.o", path);
+    let _ = std::process::Command::new("g++").args([path, "-O2", "-o", out_file]).output();
+    let _ = std::process::Command::new("wt").args(["D:\\ConsolePauser\\target\\release\\ConsolePauser.exe", out_file]).output();
+}
+
+#[tauri::command]
 fn is_supported(path: &str) -> bool {
     match infer::get_from_path(path) {
         Ok(Some(info)) => {
@@ -257,6 +266,11 @@ fn is_supported(path: &str) -> bool {
             false
         }
     }
+}
+
+#[tauri::command]
+fn appdata_locol_dir() -> PathBuf{
+    env::current_dir().expect("REASON")
 }
 
 fn detect_indent(lines: &[&str]) -> Option<usize> {
@@ -338,7 +352,7 @@ fn configure_log_path(app: &mut App) {
         .format(&format)
         .unwrap();
     let log_name = format!("nucleus_log-{}.log", time);
-    
+
     // changing the default log name to something more meaningful
     let new_log_path = app_log_dir.join(log_name);
     fs::rename(old_log_path, new_log_path).unwrap();
@@ -350,8 +364,8 @@ fn load_settings(app: &mut App) {
     let default_settings = serde_json::json!(
         {
             "nucleus.theme": "Dark",
-            "editor.fontSize": 14,
-            "editor.fontFamily": "monospace",
+            "editor.fontSize": 16,
+            "editor.fontFamily": "JBMono",
             "editor.lineHeight": 1.3,
             "editor.tabSize": 4,
             "editor.autosave": false,
@@ -368,7 +382,9 @@ fn load_settings(app: &mut App) {
             }
         }
     );
-    let appdata_local = tauri::api::path::app_local_data_dir(&app.config()).unwrap();
+    // let appdata_local = tauri::api::path::app_local_data_dir(&app.config()).unwrap();
+    let appdata_local = appdata_locol_dir();
+    // let appdata_local = env::current_dir().expect("REASON");
     let settings_path = appdata_local.join("default_settings.json");
 
     #[cfg(debug_assertions)]
@@ -415,9 +431,11 @@ fn main() {
             is_folder,
             read_file,
             write_file,
+            run_file,
             open_in_default,
             is_supported,
-            open_terminal
+            open_terminal,
+            appdata_locol_dir
         ])
         .plugin(tauri_plugin_fs_watch::init())
         .plugin(tauri_plugin_store::Builder::default().build())

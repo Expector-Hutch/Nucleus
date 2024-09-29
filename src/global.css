@@ -1,3 +1,8 @@
+@font-face {
+	font-family: 'JBMono';
+	src: url('./assets/fonts/JBMono.ttf');
+}
+
 *:focus-visible, *:focus {
 	outline: none;
 }

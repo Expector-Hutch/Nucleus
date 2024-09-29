@@ -74,7 +74,8 @@ async function fireAction(callback: () => Promise<void>, args = []) {
 export let appSettings: Store;
 
 export async function loadDefaultSettings() {
-    const appdataLocal = await path.appLocalDataDir();
+    const appdataLocal = (await invoke("appdata_locol_dir")) + "\\";
+    // console.log(new Store(`${(await invoke("appdata_locol_dir")) + "\\"}default_settings.json`));
     appSettings = new Store(`${appdataLocal}default_settings.json`);
 
     await watch(

@@ -38,7 +38,7 @@
 		updateMinPanelSize();
 
 		addNotification(NotifType.Message, "Welcome to Nucleus", [
-			{label: "Learn More", action: () => {shell.open("https://github.com/mellobacon/Nucleus")}}, 
+			{label: "Learn More", action: () => {shell.open("https://github.com/mellobacon/Nucleus")}},
 			{label: "Create Issue", action: () => {shell.open("https://github.com/mellobacon/Nucleus/issues/new/choose")}}
 		], "Nucleus is in alpha. If there are any bugs present or features you want to add, create an issue below.");
 

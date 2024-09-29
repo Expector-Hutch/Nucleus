@@ -326,3 +326,9 @@ export function checkValidFileName(input: string) {
     if (input === "") return false;
     return true;
 }
+
+export async function runFile() {
+    await saveFile();
+    const tab = get(tabs).find(t => t.active && t.isfile);
+    await invoke("run_file", {path: tab.path})
+}
