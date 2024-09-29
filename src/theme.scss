@@ -1,4 +1,5 @@
 $header-height: 2rem;
+$toolbar-height: 1.7rem;
 $statusbar-height: 1.5rem;
 $tab-container-height: 2rem;
 
@@ -8,6 +9,9 @@ html {
 }
 #handle, #header {
     height: $header-height;
+}
+#toolbar {
+    height: $toolbar-height;
 }
 #statusbar {
     border-top: solid 1px var(--window-borderColor);
@@ -141,10 +145,10 @@ button:focus {
 }
 
 #main {
-    height: calc(100vh - $header-height - $statusbar-height - 0.063rem * 2);
+    height: calc(100vh - $header-height - $toolbar-height - $statusbar-height - 0.063rem * 2);
 }
 #main.fullscreen {
-    height: calc(100vh - $header-height + 0.4rem) !important;
+    height: calc(100vh - $header-height - $toolbar-height + 0.4rem) !important;
 }
 
 #sidebar {

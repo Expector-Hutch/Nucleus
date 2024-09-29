@@ -327,8 +327,13 @@ export function checkValidFileName(input: string) {
     return true;
 }
 
+export async function buildFile() {
+    saveFile();
+    const tab = get(tabs).find(t => t.active && t.isfile);
+    await invoke("build_file", {path: tab.path})
+}
+
 export async function runFile() {
-    await saveFile();
     const tab = get(tabs).find(t => t.active && t.isfile);
     await invoke("run_file", {path: tab.path})
 }

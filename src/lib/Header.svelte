@@ -36,9 +36,11 @@
             {name: "Fullscreen", shortcut: commands.fullscreen.keybind, action: commands.fullscreen.command},
         ]},
         {menuname: "Run", children: [
-            {name: "Run File", shortcut: commands.runFile.keybind, action: commands.runFile},
-            {name: "Debug File", disabled: true,  shortcut: commands.debugFile.keybind, action: commands.debugFile.command},
-            {name: "Stop File", disabled: true,  shortcut: commands.stopFile.keybind, action: commands.stopFile.command},
+            {name: "Build File", shortcut: commands.buildFile.keybind, action: commands.buildFile.command},
+            {name: "Run File", shortcut: commands.runFile.keybind, action: commands.runFile.command},
+            {name: "Build & Run File", shortcut: commands.buildRunFile.keybind, action: commands.buildRunFile.command},
+            // {name: "Debug File", disabled: true,  shortcut: commands.debugFile.keybind, action: commands.debugFile.command},
+            // {name: "Stop File", disabled: true,  shortcut: commands.stopFile.keybind, action: commands.stopFile.command},
             {name: "Open Configurations", disabled: true,  shortcut: "", action: () => {console.warn("Feature not implemented yet.")}},
         ]},
         {menuname: "Window", children: [
@@ -73,7 +75,6 @@
     </div>
     <div id="handle" data-tauri-drag-region></div>
     <div class="tools">
-        
         <div class="settings-button">
             <Menu right menu={{icon: Settings, children: [
                 {name: "Settings", shortcut: "", action: () => {addTab("Settings", "Settings", new settings({target: document.getElementById("tabview")}))}}, 

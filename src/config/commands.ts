@@ -1,7 +1,7 @@
 import { fs, path as p } from "@tauri-apps/api";
 import { openInputModal, openRenameModal } from "../App.svelte";
 import { addEditorTab, closeAllTabs } from "../lib/EditorTabList.svelte";
-import { saveFile, openFile, openFolder, openInExplorer, renameFile, createFolder, createFile, runFile } from "../lib/File";
+import { saveFile, openFile, openFolder, openInExplorer, renameFile, createFolder, createFile, runFile, buildFile } from "../lib/File";
 import { appWindow } from "@tauri-apps/api/window";
 import { info, warn } from "tauri-plugin-log-api";
 import { fitTerminal } from "../lib/Terminal.svelte";
@@ -128,24 +128,37 @@ export const commands = {
             }
         }
     },
+    "buildFile": {
+        "keybind": "F9",
+        "command": async () => {
+            await buildFile();
+        }
+    },
     "runFile": {
-        "keybind": "F11",
+        "keybind": "F10",
         "command": async () => {
             await runFile();
         }
     },
-    "debugFile": {
-        "keybind": "Control+F5",
-        "command": () => {
-            //
+    "buildRunFile": {
+        "keybind": "F11",
+        "command": async () => {
+            await buildFile();
+            await runFile();
         }
     },
-    "stopFile": {
-        "keybind": "Shift+F5",
-        "command": () => {
-            //
-        }
-    },
+    // "debugFile": {
+    //     "keybind": "Control+F5",
+    //     "command": () => {
+    //         //
+    //     }
+    // },
+    // "stopFile": {
+    //     "keybind": "Shift+F5",
+    //     "command": () => {
+    //         //
+    //     }
+    // },
     "openNewWindow": {
         "keybind": "Control+Shift+N",
         "command": () => {

@@ -237,11 +237,18 @@ fn write_file(path: &str, content: &str, enc: &str, has_bom: bool) {
 }
 
 #[tauri::command]
+fn build_file(path: &str) {
+    info!("Attempting to build the file {}.", path);
+
+    let out_file: &str = &format!("{}.o", path);
+    let _ = std::process::Command::new("g++").args([path, "-O2", "-o", out_file]).output();
+}
+
+#[tauri::command]
 fn run_file(path: &str) {
     info!("Attempting to run the file {}.", path);
 
     let out_file: &str = &format!("{}.o", path);
-    let _ = std::process::Command::new("g++").args([path, "-O2", "-o", out_file]).output();
     let _ = std::process::Command::new("wt").args(["D:\\ConsolePauser\\target\\release\\ConsolePauser.exe", out_file]).output();
 }
 
@@ -431,6 +438,7 @@ fn main() {
             is_folder,
             read_file,
             write_file,
+            build_file,
             run_file,
             open_in_default,
             is_supported,
