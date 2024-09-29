@@ -1,5 +1,5 @@
 $header-height: 2rem;
-$toolbar-height: 1.7rem;
+$toolbar-height: 1.8rem;
 $statusbar-height: 1.5rem;
 $tab-container-height: 2rem;
 
@@ -26,7 +26,7 @@ html {
 #workspace {
     line-height: $header-height;
 }
-#header {
+#header, #toolbar {
     background-color: var(--header-background);
     box-shadow: var(--header-borderColor) 0px 1.5px 0px;
 }

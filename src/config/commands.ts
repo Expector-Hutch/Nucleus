@@ -6,6 +6,8 @@ import { appWindow } from "@tauri-apps/api/window";
 import { info, warn } from "tauri-plugin-log-api";
 import { fitTerminal } from "../lib/Terminal.svelte";
 import { exit } from "@tauri-apps/api/process";
+import { addNotification, NotifType } from "../lib/Notifications/notifications";
+import { shell } from "@tauri-apps/api";
 
 export const commands = {
     "addEditorTab": {
@@ -131,7 +133,10 @@ export const commands = {
     "buildFile": {
         "keybind": "F9",
         "command": async () => {
-            await buildFile();
+            const compileInformation =  await buildFile();
+            addNotification(NotifType.Message, "Finished building", [
+                // {label: "Learn More", action: () => {shell.open("https://github.com/mellobacon/Nucleus")}},
+            ], compileInformation);
         }
     },
     "runFile": {
@@ -143,7 +148,10 @@ export const commands = {
     "buildRunFile": {
         "keybind": "F11",
         "command": async () => {
-            await buildFile();
+            const compileInformation =  await buildFile();
+            addNotification(NotifType.Message, "Finished building", [
+                // {label: "Learn More", action: () => {shell.open("https://github.com/mellobacon/Nucleus")}},
+            ], compileInformation);
             await runFile();
         }
     },
